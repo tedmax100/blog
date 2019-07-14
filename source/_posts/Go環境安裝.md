@@ -1,6 +1,7 @@
 ---
 title: Go環境安裝
 date: 2019-07-14 15:30:26
+categories: "Go"
 tags:
     - Go
 ---

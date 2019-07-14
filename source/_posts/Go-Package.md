@@ -1,6 +1,7 @@
 ---
 title: Go Package
 date: 2019-07-14 15:31:31
+categories: "Go"
 tags:
     - Go
 ---

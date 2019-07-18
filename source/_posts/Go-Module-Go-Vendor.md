@@ -5,6 +5,7 @@ categories: "Go"
 tags:
     - Go
 ---
+![](/images/Go/go-packages.jpg)
 ## Go Module基礎
 
 ### 出現原因

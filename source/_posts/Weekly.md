@@ -22,3 +22,6 @@ Every Thursday
 
 Every Friday
 [JavaScript](https://javascriptweekly.com/issues)
+
+Every Sunday
+[Techbridge](https://weekly.techbridge.cc/)

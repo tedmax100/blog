@@ -1,7 +1,10 @@
 ---
 title: Container 3兄弟-List
 date: 2020-12-20 21:26:42
+categories: "Go"
 tags:
+    - Go
+    - iT邦鐵人賽11Th
 ---
 Go有提供幾種 List、Heap、Ring
 來依序玩看看
@@ -312,4 +315,4 @@ List 的刪除元素耗費:73ns
 
 > 首圖是參考[該文章](https://medium.com/backendarmy/linked-lists-in-go-f7a7b27a03b9)的, 該文有講單鏈, 雙鏈跟環鏈, 有機會再分享
 
-[鐵人賽連結](https://ithelp.ithome.com.tw/articles/10214704/edit)
+[鐵人賽連結](https://ithelp.ithome.com.tw/articles/10214704)

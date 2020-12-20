@@ -1,39 +1,40 @@
-name: HEXO CI
-
+name: CI
 on:
   push:
     branches:
-    - master
-
+      - backup 
 jobs:
   build:
-    runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        node-version: [13.x]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
-
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-
+          node_version: ${{ matrix.node_version }}
       - name: Configuration environment
         env:
-          HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
+          DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
         run: |
           mkdir -p ~/.ssh/
-          echo "$HEXO_DEPLOY_PRI" | tr -d '\r' > ~/.ssh/id_rsa
+          echo "$DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          echo "$DEPLOY_KEY"
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-          git config --global user.name "tedmax100"
-          git config --global user.email "tedmax100@gmail.com"
+          git config --global user.name "owlran"
+          git config --global user.email "owlran1088@gmail.com"
+      - name: Update themes
+        run: |
+          git submodule init
+          git submodule update
       - name: Install dependencies
         run: |
           npm i -g hexo-cli
           npm i
+      - name: Generate hexo
+        run: |
+          hexo generate
       - name: Deploy hexo
         run: |
-          hexo generate && hexo deploy
+          hexo deploy

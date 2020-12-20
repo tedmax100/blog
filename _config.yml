@@ -81,4 +81,5 @@ theme: hueman
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/tedmax100/tedmax100.github.io
+  repo: git@github.com:tedmax100/tedmax100.github.io.git
+  branch: master

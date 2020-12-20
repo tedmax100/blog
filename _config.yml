@@ -5,11 +5,14 @@
 # Site
 title: 雷N's Blog
 subtitle: 時間花在哪, 成就就在那. 充足的努力, 才能看起來毫不費力
-description:
-keywords:
+description: 後端開發、軟體工程、運維佈署
+keywords: 
+  - 後端開發
+  - 軟體工程
+  - 運維佈署
 author: Nathan雷N
 language:
-  - zh-tw
+  - zh-TW
   - en
 timezone:
 

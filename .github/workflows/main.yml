@@ -1,4 +1,4 @@
-name: CI
+name: HEXO CI
 on:
   push:
     branches:

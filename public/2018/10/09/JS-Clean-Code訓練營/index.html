@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>JS Clean Code訓練營 | 雷N&#39;s Note</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="JavaScript,CleanCode">
+    
+    <meta name="description" content="12345678910111213第一天 :有效的单元测试识别依赖隔离依赖前端逻辑的常见剥离方式Stub与Mock处理Callback和Promise第二天 : 小步重构识别代码臭味处理代码臭味的技巧良好设计的基本原则消除重复，降低复杂度  Day1 :Lesson 1:1 .FizzBuzz 數學歸納法: n =1 =&amp;gt; n+1 ok一個it test, 通常證明2個test case">
+<meta name="keywords" content="JavaScript,CleanCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS Clean Code訓練營">
+<meta property="og:url" content="https://tedmax100.github.io/2018/10/09/JS-Clean-Code訓練營/index.html">
+<meta property="og:site_name" content="雷N&#39;s Note">
+<meta property="og:description" content="12345678910111213第一天 :有效的单元测试识别依赖隔离依赖前端逻辑的常见剥离方式Stub与Mock处理Callback和Promise第二天 : 小步重构识别代码臭味处理代码臭味的技巧良好设计的基本原则消除重复，降低复杂度  Day1 :Lesson 1:1 .FizzBuzz 數學歸納法: n =1 =&amp;gt; n+1 ok一個it test, 通常證明2個test case">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://tedmax100.github.io/images/Refactor/51ta2ZRmPeL.jpg">
+<meta property="og:updated_time" content="2020-12-20T07:56:16.169Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS Clean Code訓練營">
+<meta name="twitter:description" content="12345678910111213第一天 :有效的单元测试识别依赖隔离依赖前端逻辑的常见剥离方式Stub与Mock处理Callback和Promise第二天 : 小步重构识别代码臭味处理代码臭味的技巧良好设计的基本原则消除重复，降低复杂度  Day1 :Lesson 1:1 .FizzBuzz 數學歸納法: n =1 =&amp;gt; n+1 ok一個it test, 通常證明2個test case">
+<meta name="twitter:image" content="https://tedmax100.github.io/images/Refactor/51ta2ZRmPeL.jpg">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">時間花在哪, 成就就在那. 充足的努力, 才能看起來毫不費力</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Docker/">Docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Go/">Go</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/TechWeekly/">TechWeekly</a></li></ul>
+                                
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-JS-Clean-Code訓練營" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        JS Clean Code訓練營
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2018/10/09/JS-Clean-Code訓練營/" class="article-date">
+       <time datetime="2018-10-09T04:46:57.000Z" itemprop="datePublished">2018-10-09</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2018/10/09/JS-Clean-Code訓練營/" class="article-date">
+     <time datetime="2020-12-20T07:56:16.169Z" itemprop="dateModified">2020-12-20</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/CleanCode/">CleanCode</a>, <a class="tag-link" href="/tags/JavaScript/">JavaScript</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <p><img src="/images/Refactor/51ta2ZRmPeL.jpg" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">第一天 :</span><br><span class="line">有效的单元测试</span><br><span class="line">识别依赖</span><br><span class="line">隔离依赖</span><br><span class="line">前端逻辑的常见剥离方式</span><br><span class="line">Stub与Mock</span><br><span class="line">处理Callback和Promise</span><br><span class="line">第二天 : </span><br><span class="line">小步重构</span><br><span class="line">识别代码臭味</span><br><span class="line">处理代码臭味的技巧</span><br><span class="line">良好设计的基本原则</span><br><span class="line">消除重复，降低复杂度</span><br></pre></td></tr></table></figure>
+
+<h2 id="Day1"><a href="#Day1" class="headerlink" title="Day1 :"></a>Day1 :</h2><h3 id="Lesson-1"><a href="#Lesson-1" class="headerlink" title="Lesson 1:"></a>Lesson 1:</h3><p>1 .FizzBuzz</p>
+<p>數學歸納法: n =1 =&gt; n+1 ok<br>一個it test, 通常證明2個test case</p>
+<p>Vue_Header profileCaption test</p>
+<h3 id="Lesson-2"><a href="#Lesson-2" class="headerlink" title="Lesson 2:"></a>Lesson 2:</h3><p>單元測試的好處:</p>
+<ul>
+<li>“提早”得知程式碼是否有漏洞; 提早設置check point。</li>
+<li>回歸測試</li>
+<li>自動運行</li>
+<li>說明文件</li>
+<li>建立可重複利用的元件</li>
+<li>任何測試案例應該是獨立的</li>
+<li>使用者角度去做測試案例</li>
+<li>private method不應該被特別測試，因為第7點的關係，使用者只在意公開方法，且私有方法一定會被公開方法給使用到。</li>
+<li>基本上單元測試，都是黑盒測試，因為只在意輸出入。</li>
+<li>單元測試要快</li>
+<li>使用類似jest的框架，整合模擬測試ui上的行為</li>
+</ul>
+<h3 id="Lesson-3"><a href="#Lesson-3" class="headerlink" title="Lesson 3 :"></a>Lesson 3 :</h3><p>物件導向設計原則:</p>
+<ul>
+<li>組件 應該要具備 高內聚、低耦合 的特性</li>
+<li>物件導向的繼承關係，就是高耦合</li>
+<li>只要function內有new()，也是高耦合</li>
+</ul>
+<p>Stub : state change<br>Mock : behavior test (called, parameter…)</p>
+<h3 id="Lesson-4"><a href="#Lesson-4" class="headerlink" title="Lesson 4:"></a>Lesson 4:</h3><p>一一一一一一一一一一一一一一一一一一一<br>UT —————————–&gt; IT</p>
+<ul>
+<li><p>Unit Test:</p>
+<ul>
+<li>速度快</li>
+<li>程式少</li>
+<li>定位問題簡單</li>
+<li>代碼依賴剝離 成本高</li>
+<li>無網路、文檔讀寫、外部第三方套件、跟運行環境無關的、與配置無關</li>
+</ul>
+</li>
+<li><p>Integration Test:</p>
+<ul>
+<li>速度慢</li>
+<li>程式多</li>
+<li>定位問題多</li>
+<li>代碼依賴剝離 成本低</li>
+<li>前端的UI</li>
+<li>異步執行</li>
+</ul>
+</li>
+</ul>
+<h4 id="Refactoring"><a href="#Refactoring" class="headerlink" title="Refactoring"></a>Refactoring</h4><ul>
+<li><p>moment.js(會修改自身，產生副作用) -&gt; date.js</p>
+</li>
+<li><p>budget.js</p>
+<ul>
+<li>if 有return , else也return</li>
+<li>remove else</li>
+<li>重複的邏輯 -&gt; extract method</li>
+<li>可讀性低 || 註解 (因為怕看不懂，所以加註解)</li>
+</ul>
+</li>
+<li><p>code smell</p>
+<ul>
+<li>長方法 long method代碼行數過長 (code standard by group define)</li>
+<li>多種數據結構 使用同一個數據 表達同一件事情。startDate &amp; endDate 進來後被轉成兩種不同的變數。</li>
+<li>duplicate logic(code)</li>
+<li>temporary variable(Field) -&gt; Inline Temp</li>
+<li>令人費解的命名 (不把型別加入命名中) -&gt; *Rename method</li>
+<li>clearly intention</li>
+<li>資料謎團 data clump</li>
+<li>抽象干擾 Abstraction Distraction</li>
+<li>特性忌妒 Feature Envy</li>
+<li>基礎型別偏執 primitive obssession</li>
+</ul>
+</li>
+<li><p>how</p>
+<ul>
+<li>use inline option</li>
+<li>delete useless codes</li>
+<li>delete duplicate codes ; 先讓疑似重複的部分盡可能變得一樣，別一開始就提取代碼。</li>
+<li>extract method</li>
+<li>rename</li>
+<li>covert param to object</li>
+<li>create data class</li>
+<li>change signature</li>
+<li>use loadash to make code to be clearly intention</li>
+</ul>
+</li>
+</ul>
+<h4 id="Refactor-vs-Rewrite"><a href="#Refactor-vs-Rewrite" class="headerlink" title="Refactor vs Rewrite"></a>Refactor vs Rewrite</h4><ul>
+<li>Refactor: 行為與之前一樣，但代碼可讀性更高</li>
+<li>Rewrite : 行為未必與之前一樣。</li>
+<li>異動範圍大小</li>
+<li>流程與結構的不同</li>
+</ul>
+<h2 id="Day2"><a href="#Day2" class="headerlink" title="Day2"></a>Day2</h2><p>被提取出來的私有class，與私有方法，只要是只有被測試公開方法給涵蓋，且只有這些再用，就不必再額外寫測試。除非它後來有其他其他未被涵蓋測試的公開方法給引用。除非後來因為這些被提取的部分出bug，再補充其測試。</p>
+<ul>
+<li><p>Refactor</p>
+<ul>
+<li>擁抱變化</li>
+<li>從legacy code 實現 演進式設計</li>
+</ul>
+</li>
+<li><p>建築 vs software design</p>
+<ul>
+<li>藍圖 –build–&gt; 建築</li>
+<li>代碼 –build–&gt; 軟體</li>
+<li>UML 用來與人溝通，一致化想法用的語言，並非藍圖</li>
+</ul>
+</li>
+<li><p>JS 不一定適合套用design pattern, 只有少數的pattern適用</p>
+</li>
+<li><p>Legacy code type :</p>
+<ul>
+<li>new feature</li>
+<li>stable (已經上無數補丁，正在運行中)</li>
+<li>unused</li>
+</ul>
+</li>
+</ul>
+<h3 id="Lesson-2-1"><a href="#Lesson-2-1" class="headerlink" title="Lesson 2"></a>Lesson 2</h3><ul>
+<li><p>MVC vs MVP</p>
+<ul>
+<li>MVC的進入點是controller -&gt; Model -&gt; Controller -&gt; View</li>
+<li>MVP的進入點式VIEW -&gt; Presenter -&gt; Model -&gt; Presenter -&gt; View</li>
+</ul>
+</li>
+<li><p>Tell, Don’t ask -&gt; Design principle</p>
+</li>
+<li><p>防衛性編程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fun A(xxx) &#123;</span><br><span class="line">    if(A) ...</span><br><span class="line">    return ___;</span><br><span class="line">&#125;</span><br><span class="line">let a = A(param);</span><br><span class="line">if(a) &#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在進入口做防範驗證，內部邏輯別做太多返回值的判斷。</p>
+</li>
+<li><p>調用者保證參數有效，被調用者保證返回值有效</p>
+</li>
+<li><p>Design Contract</p>
+</li>
+<li><p>給予 default value; 別用null 表達某一種邏輯</p>
+</li>
+<li><p>Null object pattern</p>
+</li>
+<li><p>architecture</p>
+</li>
+<li><p>view model</p>
+</li>
+<li><p>presenter</p>
+</li>
+<li><p>business model</p>
+</li>
+<li><p>dto、dao</p>
+</li>
+</ul>
+<h3 id="Smells"><a href="#Smells" class="headerlink" title="Smells"></a>Smells</h3><ul>
+<li><p>註解</p>
+<ul>
+<li>不適當的訊息 Inappropriate Information : 註釋只應該描述有關代碼跟設計的技術性訊息，不該帶作者、最後修改時間等。 因為GIT上會記錄。</li>
+<li>廢棄的註解 Obsolete Comment:不正確或無關的註解。</li>
+<li>冗餘註解</li>
+<li>糟糕的註解</li>
+<li>註解掉的代碼  </li>
+</ul>
+</li>
+<li><p>方法</p>
+<ul>
+<li>過多的參數 Too Many Arguments : 盡量少，沒參數最好，超過3個就要避免。</li>
+<li>輸出參數 Output Arguments: appendFooter(s) 不如把footer設定在物件屬性內，再呼叫report.appendFoorer()</li>
+<li>標示參數 Flag Arguments</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//pseudo-code</span><br><span class="line">class Concert...</span><br><span class="line">  public Booking book (Customer aCustomer, boolean isPremium) &#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public Booking regularBook(Customer aCustomer) &#123;...&#125;</span><br><span class="line">public Booking premiumBook(Customer aCustomer) &#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>* 死方法 Dead Function</code></pre><ul>
+<li>一般問題<ul>
+<li>重複 DRY (Don’t Repeat Yourself): 資料庫正規化，物件導向繼承</li>
+<li>接口提供過多 Too Much Information</li>
+<li>特性依戀 Feature Envy: 類別的方法只對類中的屬性跟方法有興趣，不該依靠其他類中的變數跟方法。顯然是「內聚力」不夠的一種現象</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://tedmax100.github.io/2018/10/09/JS-Clean-Code訓練營/" data-id="ckix3rsyg000pwx6x52xdpkbq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Nathan雷N"
+        },
+        "headline": "JS Clean Code訓練營",
+        "image": "https://tedmax100.github.io/images/Refactor/51ta2ZRmPeL.jpg",
+        "keywords": "JavaScript CleanCode",
+        "genre": "",
+        "datePublished": "2018-10-09",
+        "dateCreated": "2018-10-09",
+        "dateModified": "2020-12-20",
+        "url": "https://tedmax100.github.io/2018/10/09/JS-Clean-Code訓練營/",
+        "description": "
+12345678910111213第一天 :有效的单元测试识别依赖隔离依赖前端逻辑的常见剥离方式Stub与Mock处理Callback和Promise第二天 : 小步重构识别代码臭味处理代码臭味的技巧良好设计的基本原则消除重复，降低复杂度
+
+Day1 :Lesson 1:1 .FizzBuzz
+數學歸納法: n =1 =&gt; n+1 ok一個it test, 通常證明2個test case
+",
+        "wordCount": 353
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100000721194461" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/tedmax100" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/12/15/AWS-CloudFront/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            AWS CloudFront
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2017/12/13/Introduce-to-RabbitMQ/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Introduce to RabbitMQ</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/第一隻Go程式/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://i.imgur.com/j62hYTR.png)" alt="第一隻Go程式" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Go/">Go</a></p>
+                            <p class="item-title"><a href="/2020/12/20/第一隻Go程式/" class="title">第一隻Go程式</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T08:50:06.000Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/學Golang的緣由/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://i.imgur.com/DNWjAse.gif)" alt="學Golang的緣由" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Go/">Go</a></p>
+                            <p class="item-title"><a href="/2020/12/20/學Golang的緣由/" class="title">學Golang的緣由</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T08:17:50.000Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/hello-world/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2020/12/20/hello-world/" class="title">Hello World</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T07:56:16.169Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/08/08/Docker-Multi-Stage-Build/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Go/4b2d10e2b8128b3c5d8fb38235e08b4793f150f8.jpeg)" alt="Docker Multi Stage Build" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Docker/">Docker</a></p>
+                            <p class="item-title"><a href="/2019/08/08/Docker-Multi-Stage-Build/" class="title">Docker Multi Stage Build</a></p>
+                            <p class="item-date"><time datetime="2019-08-07T16:06:18.000Z" itemprop="datePublished">2019-08-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/07/28/Go-Context/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Go/">Go</a></p>
+                            <p class="item-title"><a href="/2019/07/28/Go-Context/" class="title">Go-Context</a></p>
+                            <p class="item-date"><time datetime="2019-07-28T14:42:02.000Z" itemprop="datePublished">2019-07-28</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TechWeekly/">TechWeekly</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CleanCode/">CleanCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS30Day/">JS30Day</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSCript/">JavaSCript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pixi/">Pixi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rx/">Rx</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sportsbook/">Sportsbook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TechWeekly/">TechWeekly</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iT邦鐵人賽11Th/">iT邦鐵人賽11Th</a><span class="tag-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/CleanCode/" style="font-size: 10px;">CleanCode</a> <a href="/tags/Design-Pattern/" style="font-size: 17.5px;">Design Pattern</a> <a href="/tags/Docker/" style="font-size: 12.5px;">Docker</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/JS30Day/" style="font-size: 10px;">JS30Day</a> <a href="/tags/JavaSCript/" style="font-size: 12.5px;">JavaSCript</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Lua/" style="font-size: 10px;">Lua</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/Pixi/" style="font-size: 10px;">Pixi</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Rx/" style="font-size: 15px;">Rx</a> <a href="/tags/Sportsbook/" style="font-size: 10px;">Sportsbook</a> <a href="/tags/TechWeekly/" style="font-size: 10px;">TechWeekly</a> <a href="/tags/TypeScript/" style="font-size: 17.5px;">TypeScript</a> <a href="/tags/iT邦鐵人賽11Th/" style="font-size: 12.5px;">iT邦鐵人賽11Th</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://mileschou.github.io/">Miles Blog</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://jame2408.github.io/">James 的技術隨筆</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 Nathan雷N</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://tedmax100.github.io/2018/10/09/JS-Clean-Code訓練營/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+</body>
+</html>

@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Nathan's Note Book
-subtitle: 時間花在哪, 成就就在那
+title: 雷N's Note
+subtitle: 時間花在哪, 成就就在那. 充足的努力, 才能看起來毫不費力
 description:
 keywords:
-author: Nathan
+author: Nathan雷N
 language:
   - zh-tw
   - en
@@ -15,7 +15,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: https://tedmax100.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:

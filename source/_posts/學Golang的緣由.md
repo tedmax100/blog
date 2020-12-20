@@ -1,12 +1,14 @@
 ---
 title: 學Golang的緣由
 date: 2020-12-20 16:17:50
+categories: "Go"
 tags:
     - Go
     - iT邦鐵人賽11Th
 ---
 ![](https://i.imgur.com/DNWjAse.gif)
 ### 學Golang的緣由
+<!-- more -->
 這是小弟第一次參加鐵人賽, 來挑戰一下自我.
 開始學著寫Golang的原因是因為寫了幾年NodeJS跟C#, 
 但Node真的一個專案打包成docker image超臃腫.

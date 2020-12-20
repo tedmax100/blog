@@ -1,6 +1,7 @@
 ---
 title: 第一隻Go程式
 date: 2020-12-20 16:50:06
+categories: "Go"
 tags:
     - Go
     - iT邦鐵人賽11Th
@@ -9,7 +10,7 @@ tags:
 [Golang下載](https://golang.org/dl/)
 [Install doc](https://golang.org/doc/install)
 [VsCode](https://code.visualstudio.com/)
-
+<!-- more -->
 ## Install the GO on Linux
 ```bash=
 # Download file

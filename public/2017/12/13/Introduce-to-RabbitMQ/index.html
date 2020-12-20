@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Introduce to RabbitMQ | 雷N&#39;s Note</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="MQ,RabbitMQ">
+    
+    <meta name="description" content="RabbitMQ Tutorials">
+<meta name="keywords" content="MQ,RabbitMQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduce to RabbitMQ">
+<meta property="og:url" content="https://tedmax100.github.io/2017/12/13/Introduce-to-RabbitMQ/index.html">
+<meta property="og:site_name" content="雷N&#39;s Note">
+<meta property="og:description" content="RabbitMQ Tutorials">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://tedmax100.github.io/images/MQ/RabbitMQRouting.png">
+<meta property="og:updated_time" content="2020-12-20T07:56:16.169Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Introduce to RabbitMQ">
+<meta name="twitter:description" content="RabbitMQ Tutorials">
+<meta name="twitter:image" content="https://tedmax100.github.io/images/MQ/RabbitMQRouting.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">時間花在哪, 成就就在那. 充足的努力, 才能看起來毫不費力</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Docker/">Docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Go/">Go</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/TechWeekly/">TechWeekly</a></li></ul>
+                                
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    uncategorized
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Introduce-to-RabbitMQ" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Introduce to RabbitMQ
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2017/12/13/Introduce-to-RabbitMQ/" class="article-date">
+       <time datetime="2017-12-13T04:29:48.000Z" itemprop="datePublished">2017-12-13</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2017/12/13/Introduce-to-RabbitMQ/" class="article-date">
+     <time datetime="2020-12-20T07:56:16.169Z" itemprop="dateModified">2020-12-20</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/MQ/">MQ</a>, <a class="tag-link" href="/tags/RabbitMQ/">RabbitMQ</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <p><img src="/images/MQ/RabbitMQRouting.png" alt><br><a href="https://www.rabbitmq.com/getstarted.html" target="_blank" rel="noopener">RabbitMQ Tutorials
+</a></p>
+<a id="more"></a>
+<h3 id="What-is-RabbitMQ"><a href="#What-is-RabbitMQ" class="headerlink" title="What is RabbitMQ?"></a>What is RabbitMQ?</h3><p>RabbitMQ是實現AMQP的一種微服務，用於分散是系統之中來儲存轉發訊息，便於使用，方便擴展，又有高可用性。<br>目的能替系統之間做雙向解耦。當生產者產出大量資料要送出時，消費者若無法快速消費掉，這時候就需要一個中介層，來保存這些數據。</p>
+<p>AMQP的工作流程如下圖 : message被publisher 發送給exchange，exchange常常被比喻為郵局或是郵箱。然後exchange根據收到的message以及規則分發給綁定的queue。最後AMQP代理會將message投遞給訂閱此queue的consumer，或是消費者依照需求自行獲取。<br><img src="/images/MQ/exchanges-topic-fanout-direct.png" alt></p>
+<p>因為網路是不可靠的，接收消息的服務也有可能在處理時失敗，所以AMQP包含的一了message acknowledgement的概念:當一個message從queue當中投遞給consumer後，consumer會通知broker，這個message可以從queue當中刪除。</p>
+<p>某些情況下，當message無法被成功投遞時，message或許會被返回給producer並且被丟棄。或者代理執行了延期操作，message會被放入Dead-Letter exchange中。此時producer可選選擇某些參數來處理這些特殊情況。</p>
+<p>一個Log系統，能用MQ來簡化工作，一個consumer進行訊息的正常處理，另一個consumer對訊息做log紀錄，只要在系統中，起兩個consumer並把queue以相同的方式binding到同一個exchange即可。 剩下的訊息分派工作全由MQ負責完成。</p>
+<h3 id="Concept-and-Feature"><a href="#Concept-and-Feature" class="headerlink" title="Concept and Feature"></a>Concept and Feature</h3><ul>
+<li><p>Broker<br>就是MQ service本身</p>
+</li>
+<li><p>Producer<br><img src="/images/MQ/producer.webp" alt><br>發送message的程序</p>
+</li>
+<li><p>Consumer<br><img src="/images/MQ/consumer.png" alt><br>一個等待從queue當中獲取message的程序</p>
+</li>
+<li><p>Virtual Host<br>一個broker內可以設置多個Vhost，做為不同用戶的權限分離，或是不同的業務規劃。<br>Vhost之間相互隔離，不同Vhost之間無法共享exchange/queue。</p>
+</li>
+<li><p>Exchange<br><img src="/images/MQ/exchanges.webp" alt><br>交換機，指定消息按照什麼規則，路由到哪個queue。<br>有direct、topic、headers、fanout 四種type能設置,<br>不同type的exchange路由行為是不同的。</p>
+</li>
+<li><p>Queue<br><img src="/images/MQ/queue.webp" alt><br>每個message都會被投遞到一個或是多個queue當中，等待被投遞。<br>類似於郵筒的概念，message都會被存放在此。<br>queue本身是一個很大的message buffer，可以有很多個producer發送，<br>但都會傳到同一個queue且可以有多個consumer獲取資料。</p>
+</li>
+<li><p>Channel<br>在客戶端的每個connection中，可以建立多個channel,每個channel表示一個session， 客戶端只能透過channel才能執行AMQP的命令。<br>之所以需要channel因為TCP連線的建立跟釋放都是十分昂貴的，如果一個客戶端的每個線程都需要與broker交換訊息，每一個線程都建立一個TCP connection的話，OS也無法承受每秒建立如此多的TCP connection。所以RabbitMQ建議同一個發送串行資料的線程共用Channel和connection。</p>
+</li>
+<li><p>Binding<br>把exchange和queue按照路由規則綁釘起來。<br>Exchange在跟多個queue binding後會生成一張routing table，</p>
+</li>
+<li><p>Routing Key<br>路由的關鍵字，exchange根據這關鍵字，來進行訊息投遞</p>
+</li>
+<li><p>AMQP entities<br>Queue + Exchange + Binding = AMQP entities</p>
+</li>
+</ul>
+<h3 id="Task-Queues"><a href="#Task-Queues" class="headerlink" title="Task Queues"></a>Task Queues</h3><p>Task queues工作隊列，是為了避免等待一些占用大量資源、費時的操作。只要把task當作訊息丟進queue中，就會有運行的worker取出任務然後處理，當運行多個workers時，任務就會在彼此之間分配。</p>
+<h4 id="Message-Acknowledgment"><a href="#Message-Acknowledgment" class="headerlink" title="Message Acknowledgment"></a>Message Acknowledgment</h4><p>通常沒特別設置ack在queue的時候，只要message一投遞出去，立刻就為從queue之中移除。<br>此時如果worker運行到一半掛掉，正在處理的message就會遺失了。<br>如果不想遺失任何message，當前worker掛掉時，我們希望任務會重新指派給其他worker。</p>
+<p>因此，RabbitMQ提供了acknowledements。<br>worker會通過一個ack訊號，告訴RabbitMQ已經收到了並且處理完該條訊息，然後MQ就會刪除該訊息。</p>
+<p>如果worker掛了，沒有發送ack，則MQ就會認為message沒有被完全處理，就會重新發送給其他worker，這樣就不會遺失任何message。</p>
+<p>但由於message沒有timeout的概念，只能等worker跟MQ斷開連線，這樣MQ就會重送了。<br>message acknowledement預設是<strong>關閉</strong>的，只要把auto_ack = true即可。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> consumer = <span class="keyword">new</span> EventingBasicConsumer(channel);</span><br><span class="line">consumer.Receved += (model, ea) =&gt;&#123;</span><br><span class="line">    <span class="keyword">var</span> body = ea.body;</span><br><span class="line">    <span class="keyword">var</span> message = Encoding.UTF8.GetString(body);</span><br><span class="line">    Console.WriteLine(<span class="string">$"<span class="subst">&#123;received &#123;message&#125;</span>&#125;"</span>);</span><br><span class="line">    <span class="keyword">int</span> dots = message.Split(<span class="string">'.'</span>).Length - <span class="number">1</span>;</span><br><span class="line">    Thread.Sleep(dots * <span class="number">1000</span>);</span><br><span class="line">    Console.WriteLine(<span class="string">"Done"</span>);</span><br><span class="line">    channel.BasicAck(deliveryTag : ea.DeliveryTag, multiple:<span class="literal">false</span>);</span><br><span class="line">&#125;;</span><br><span class="line">channel.BasicAck(queue:<span class="string">"task_queue"</span>, autoAck:True, consumer :consumer);</span><br></pre></td></tr></table></figure>
+
+<p><strong>Increase throuput and performance</strong><br>關閉ack能提升MQ的效能</p>
+<p><strong>Message Durability</strong><br>Message Durability訊息持久化，<br>MQ預設並不會對queue和message做持久化的設置，因此必須先把queue和message設置為durable。</p>
+<p>首先先聲明queue為durable，這樣確保MQ重啟後，queue不會被遺失。<br>MQ也不允許使用不同參數定義一個同名的queue。因此producer和consumer的設置必須一樣。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">channel.QueueDeclare(queue:<span class="string">"task_queue"</span>,</span><br><span class="line">                     durable :<span class="literal">true</span>,</span><br><span class="line">                     exclusive:<span class="literal">false</span>,</span><br><span class="line">                     autoDelete:<span class="literal">false</span>,</span><br><span class="line">                     arguments:<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+
+<p>接著設置message persistence</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> properties = channel.CreateBasicProperties();</span><br><span class="line">properties.Persistent = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+
+<p><em>Note on message persistence</em><br>把message 設置為persistence，並不能完全保證不會丟失。因為只是告訴MQ要把message存入硬碟，MQ也不是所有message都寫入硬碟，可能只是放在記憶體暫存。</p>
+<p><strong>Fair Dispatch</strong><br>MQ只管把第n-th消息投遞給第n-th個worker，並不關心worker有沒有ack。<br>可以設置prefetch_count=1，告訴MQ，同一時間，別送超過1條訊息給同一位worker，直到他已經處理完上一條message並送出ack。這樣MQ就會把消息分發給下一位worker。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">channel.basicqos(<span class="number">0</span>, <span class="number">1</span>, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Publish-Subscribe"><a href="#Publish-Subscribe" class="headerlink" title="Publish/Subscribe"></a>Publish/Subscribe</h3><p>pub/sub目的是要把一個message分發給多個consumer。<br>這個模型的核心概念是，producer並不會直接發送訊息給queue，而是把消息發送給exchange。</p>
+<p>exchange在這裡就是負責從producer接收消息，一邊把消息推送到queue。<br>exchange必須知道如何處理它接受到的消息，是要推送到指定的queue還是多個queue，或是忽略，這些規則是透過exchange type來定義。<br><img src="/images/MQ/exchanges.webp" alt></p>
+<p><strong>Exchange Type</strong></p>
+<ul>
+<li>direct 直連</li>
+<li>fanout 廣播</li>
+<li>topic 主題</li>
+<li>headers 表頭<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">channel.ExchangeDeclare(<span class="string">"logs"</span>, <span class="string">"fanout"</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><em>Note for default exchange</em><br>MQ預設就存在一組default exchagne，名稱是空字串””</p>
+<p><strong>Temporary queues</strong><br>在task queue的情境下，給個worker同樣的queue name，這時候會透過round robin做輪詢派送。<br>但是現在要的是每個人都能收到同樣的訊息，因此需要的是一個全新、空的queue，來跟exchagne綁定。<br>能透過自己定義隨機的queue name或是，讓MQ來幫我們選擇一個隨機的queue name。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queueName = channel.QueueDeclare().QueueName;</span><br></pre></td></tr></table></figure>
+
+<p>這時拿到的queue name就會類似amq.gen-JzTY20BRgKO-HjmUJj0wLg。</p>
+<p><strong>Bindings</strong><br><img src="/images/MQ/bindings.webp" alt><br>有了fanout exchange和數個queue，這時就要設置exchange和queue之間的關聯。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">channel.QueueBind(queue:queueName,</span><br><span class="line">                 exchagne:<span class="string">"logs"</span>,</span><br><span class="line">                 routingKey:<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/MQ/python-three-overall.png" alt></p>
+<p><em>Note for routing key</em><br>fanout type下，routing key是會被忽略的。</p>
+<h3 id="Routing"><a href="#Routing" class="headerlink" title="Routing"></a>Routing</h3><p>Routing key的設置，能使得queue只訂閱消息的子集合。<br>綁定的時候可以設置routingKey又或是稱為bindingKey，為了避免跟BasicPublish的routingKey搞混。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">channel.QueueBind(queue:queueName, </span><br><span class="line">                  exchange:<span class="string">"direct_logs"</span>,</span><br><span class="line">                  routingKey:<span class="string">"black"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>使用exchange和routing key來進行精確配對，從而確保消息該投遞到哪個queue。</p>
+<p><img src="/images/MQ/direct-exchange.png" alt><br>這裡第一個queue用orange作為綁定鍵，另一個queue用black和green。<br>這樣所有orange的消息都會被路由到C1, 而black/green則會被路由到C2，其他message通通被丟棄。</p>
+<p><strong>Multiple Bindings</strong><br>多個queue使用同樣的routingKey也是可行的。</p>
+<p><img src="/images/MQ/direct-exchange-multiple.webp" alt></p>
+<p>C1和C2都使用black做綁定。這樣跟fanout type的行為雷同，只要是black的訊息，C1跟C2都會收到，但其他一樣被丟棄。</p>
+<p><strong>Scene : Log System</strong><br>將log依據不同級別作為rougingKey來選擇接收者跟處理方式。<br><a href="/images/MQ/python-four.webp"></a><br>建立exchange</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">channel.ExchangeDeclare(exchange: <span class="string">"direct_logs"</span>, type: <span class="string">"direct"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>發送log訊息, serverity是info、warning、error其中一個</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> body = Encoding.UTF8.GetBytes(message);</span><br><span class="line">channel.BasicPublish(exchange: <span class="string">"direct_logs"</span>,</span><br><span class="line">                     routingKey: severity,</span><br><span class="line">                     basicProperties: <span class="literal">null</span>,</span><br><span class="line">                     body: body);</span><br></pre></td></tr></table></figure>
+
+<p>subscribing</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queueName = channel.QueueDeclare().QueueName;</span><br><span class="line"><span class="keyword">foreach</span>(<span class="keyword">var</span> severity <span class="keyword">in</span> args)</span><br><span class="line">&#123;</span><br><span class="line">    channel.QueueBind(queue: queueName,</span><br><span class="line">                      exchange: <span class="string">"direct_logs"</span>,</span><br><span class="line">                      routingKey: severity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Topics"><a href="#Topics" class="headerlink" title="Topics"></a>Topics</h3><p>Direct exchange有些限制，沒辦法基於多個標準來執行路由操作。<br>有時會希望不只是訂閱基於嚴重程度的日誌，也希望訂閱其他種日誌。<br>這時就需要topic exchange。</p>
+<p>發送到topic exchange的訊息不可以設置routingKey，它的routingKey是一個由.分隔開的單字列表。這些單字是什麼都能，跟message有關係的詞彙是最好的。<br>例如:”stock.usd.nyse”, “quick.orange.rabbit”，單字個數可以任意個，但不能超過255 bytes。<br>routingKey中也能使用類似regular expression表達個數:</p>
+<ul>
+<li><ul>
+<li>表示一個單字</li>
+</ul>
+</li>
+<li><h1 id="表示任意數量的單字"><a href="#表示任意數量的單字" class="headerlink" title="表示任意數量的單字"></a>表示任意數量的單字</h1><a href="/images/MQ/python-five.webp"></a><br>一個攜帶有quick.orange.rabbit的消息會被投遞到C1跟C2。<br>攜帶著lazy.orange.elephant的也是。<br>quick.orange,fox只會投遞給C2。<br>lazy.pink.rabbit只會給C2投遞1次。<br>quick.brown.fox的將會被丟棄。<br>orange和quick.orange.male.rabbit的都會被丟棄掉。<br>lazy.orange.male.rabbit將會被投遞到C2。</li>
+</ul>
+<p><code>topic exchange是很powerful的，它可以表現出其他exchnge type的行為。
+當一個queue的routingKey是#時，這個queue將會無視message的routingKey，接收全部message。
+當*和#都未出現在routingKey時，這時候就跟direct type是一樣的行為。</code></p>
+<p><strong>Questions</strong></p>
+<ul>
+<li>bindingKey為*的queue會取到一個routingKey為空字串的消息嗎?</li>
+<li>bindingKey為#.的queue會收到一個routingKey為*..的消息嗎? 它會收到routingKey為一個單字的消息嗎?</li>
+<li>a.*.#和a.#的區別?</li>
+</ul>
+<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h3><p>遠端過程調用Remote Procedure Call(RPC)<br>如果需要將一個函式運行在遠端服務上並且等待結果時，這時就需要RPC。</p>
+<p>透過RabbitMQ來建造一個RPC System，一個client和一個RPC Server。<br><a href="/images/MQ/python-six.webp"></a></p>
+<p><strong>client interface</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> rpcClient = <span class="keyword">new</span> RPCClient();</span><br><span class="line">Console.WriteLine(<span class="string">"Request fib()"</span>);</span><br><span class="line"><span class="keyword">var</span> response = rpcClient.Call(<span class="string">"30"</span>);</span><br><span class="line">Console.WriteLine(<span class="string">$"Got <span class="subst">&#123;<span class="number">0</span>&#125;</span>"</span>, response);</span><br></pre></td></tr></table></figure>
+
+<h3 id="RabbitMQ-Cluster-and-High-Available"><a href="#RabbitMQ-Cluster-and-High-Available" class="headerlink" title="RabbitMQ Cluster and High Available"></a>RabbitMQ Cluster and High Available</h3><p>RabbitMQ Cluser設置要求<br>所有機器上的Erlang和RabbitMQ版本需要都相同，機器上Erlang的Cookie也相同</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://tedmax100.github.io/2017/12/13/Introduce-to-RabbitMQ/" data-id="ckix3rsyj000zwx6x7y61esl9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Nathan雷N"
+        },
+        "headline": "Introduce to RabbitMQ",
+        "image": "https://tedmax100.github.io/images/MQ/RabbitMQRouting.png",
+        "keywords": "MQ RabbitMQ",
+        "genre": "",
+        "datePublished": "2017-12-13",
+        "dateCreated": "2017-12-13",
+        "dateModified": "2020-12-20",
+        "url": "https://tedmax100.github.io/2017/12/13/Introduce-to-RabbitMQ/",
+        "description": "RabbitMQ Tutorials
+",
+        "wordCount": 725
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100000721194461" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/tedmax100" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/10/09/JS-Clean-Code訓練營/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            JS Clean Code訓練營
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2017/11/26/Rx-IEnumberbale和IObservable/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Rx_IEnumberbale和IObservable</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/第一隻Go程式/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://i.imgur.com/j62hYTR.png)" alt="第一隻Go程式" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Go/">Go</a></p>
+                            <p class="item-title"><a href="/2020/12/20/第一隻Go程式/" class="title">第一隻Go程式</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T08:50:06.000Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/學Golang的緣由/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://i.imgur.com/DNWjAse.gif)" alt="學Golang的緣由" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Go/">Go</a></p>
+                            <p class="item-title"><a href="/2020/12/20/學Golang的緣由/" class="title">學Golang的緣由</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T08:17:50.000Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/hello-world/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2020/12/20/hello-world/" class="title">Hello World</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T07:56:16.169Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/08/08/Docker-Multi-Stage-Build/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Go/4b2d10e2b8128b3c5d8fb38235e08b4793f150f8.jpeg)" alt="Docker Multi Stage Build" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Docker/">Docker</a></p>
+                            <p class="item-title"><a href="/2019/08/08/Docker-Multi-Stage-Build/" class="title">Docker Multi Stage Build</a></p>
+                            <p class="item-date"><time datetime="2019-08-07T16:06:18.000Z" itemprop="datePublished">2019-08-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/07/28/Go-Context/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Go/">Go</a></p>
+                            <p class="item-title"><a href="/2019/07/28/Go-Context/" class="title">Go-Context</a></p>
+                            <p class="item-date"><time datetime="2019-07-28T14:42:02.000Z" itemprop="datePublished">2019-07-28</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TechWeekly/">TechWeekly</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CleanCode/">CleanCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS30Day/">JS30Day</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSCript/">JavaSCript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pixi/">Pixi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rx/">Rx</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sportsbook/">Sportsbook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TechWeekly/">TechWeekly</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iT邦鐵人賽11Th/">iT邦鐵人賽11Th</a><span class="tag-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/CleanCode/" style="font-size: 10px;">CleanCode</a> <a href="/tags/Design-Pattern/" style="font-size: 17.5px;">Design Pattern</a> <a href="/tags/Docker/" style="font-size: 12.5px;">Docker</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/JS30Day/" style="font-size: 10px;">JS30Day</a> <a href="/tags/JavaSCript/" style="font-size: 12.5px;">JavaSCript</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Lua/" style="font-size: 10px;">Lua</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/Pixi/" style="font-size: 10px;">Pixi</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Rx/" style="font-size: 15px;">Rx</a> <a href="/tags/Sportsbook/" style="font-size: 10px;">Sportsbook</a> <a href="/tags/TechWeekly/" style="font-size: 10px;">TechWeekly</a> <a href="/tags/TypeScript/" style="font-size: 17.5px;">TypeScript</a> <a href="/tags/iT邦鐵人賽11Th/" style="font-size: 12.5px;">iT邦鐵人賽11Th</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://mileschou.github.io/">Miles Blog</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://jame2408.github.io/">James 的技術隨筆</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 Nathan雷N</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://tedmax100.github.io/2017/12/13/Introduce-to-RabbitMQ/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+</body>
+</html>

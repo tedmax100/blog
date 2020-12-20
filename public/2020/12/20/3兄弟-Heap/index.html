@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Container 3兄弟-Heap | 雷N&#39;s Blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content="Go,iT邦鐵人賽11Th">
+    
+    <meta name="description" content="HeapHeap(堆積)其實是一個Complete Binary Tree(完全二元樹).Go的Heap特性是 各個節點都自己是其子樹的根, 且值是最小的.同個根節點的左子樹的值會小於右子樹.所以根節點的值是最小的, 位於索引0的位置.也有另一種是最大的(max heap), 只是Go這裡是最小的(min heap).定義 : n個元素 k1, k2,…ki…kn, 並且若且唯若滿足下列關係時稱為">
+<meta name="keywords" content="Go,iT邦鐵人賽11Th">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Container 3兄弟-Heap">
+<meta property="og:url" content="https://tedmax100.github.io/2020/12/20/3兄弟-Heap/index.html">
+<meta property="og:site_name" content="雷N&#39;s Blog">
+<meta property="og:description" content="HeapHeap(堆積)其實是一個Complete Binary Tree(完全二元樹).Go的Heap特性是 各個節點都自己是其子樹的根, 且值是最小的.同個根節點的左子樹的值會小於右子樹.所以根節點的值是最小的, 位於索引0的位置.也有另一種是最大的(max heap), 只是Go這裡是最小的(min heap).定義 : n個元素 k1, k2,…ki…kn, 並且若且唯若滿足下列關係時稱為">
+<meta property="og:locale" content="zh-TW">
+<meta property="og:image" content="https://i.imgur.com/XbheF2e.png">
+<meta property="og:updated_time" content="2020-12-20T14:17:15.614Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Container 3兄弟-Heap">
+<meta name="twitter:description" content="HeapHeap(堆積)其實是一個Complete Binary Tree(完全二元樹).Go的Heap特性是 各個節點都自己是其子樹的根, 且值是最小的.同個根節點的左子樹的值會小於右子樹.所以根節點的值是最小的, 位於索引0的位置.也有另一種是最大的(max heap), 只是Go這裡是最小的(min heap).定義 : n個元素 k1, k2,…ki…kn, 並且若且唯若滿足下列關係時稱為">
+<meta name="twitter:image" content="https://i.imgur.com/XbheF2e.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">時間花在哪, 成就就在那. 充足的努力, 才能看起來毫不費力</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">首頁</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">關於</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Docker/">Docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Go/">Go</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/TechWeekly/">TechWeekly</a></li></ul>
+                                
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜尋" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="輸入關鍵字..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '頁面',
+            CATEGORIES: '分類',
+            TAGS: '標籤',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Go/">Go</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-3兄弟-Heap" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Container 3兄弟-Heap
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/2020/12/20/3兄弟-Heap/" class="article-date">
+       <time datetime="2020-12-20T14:16:31.000Z" itemprop="datePublished">2020-12-20</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/2020/12/20/3兄弟-Heap/" class="article-date">
+     <time datetime="2020-12-20T14:17:15.614Z" itemprop="dateModified">2020-12-20</time>
+  </a>
+</div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Go/">Go</a>, <a class="tag-link" href="/tags/iT邦鐵人賽11Th/">iT邦鐵人賽11Th</a>
+    </div>
+
+                
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h1 id="Heap"><a href="#Heap" class="headerlink" title="Heap"></a><a href="https://golang.org/pkg/container/heap/" target="_blank" rel="noopener">Heap</a></h1><p>Heap(堆積)其實是一個Complete Binary Tree(完全二元樹).<br>Go的Heap特性是 各個節點都自己是其子樹的根, 且值是最小的.<br>同個根節點的左子樹的值會小於右子樹.<br>所以根節點的值是最小的, 位於索引0的位置.<br>也有另一種是最大的(max heap), 只是Go這裡是最小的(min heap).<br>定義 : n個元素 k1, k2,…ki…kn, 並且若且唯若滿足下列關係時稱為heap<br>ki &lt;= k2i, ki &lt;= k(2i+1) 或者 ki &gt;= k2i, ki &gt;= k(2i+1), i = 1,2,3…,n/2<br>又因為最小(或最大)的值, 取出該值都只要O(1)的時間.</p>
+<p>通常該結構是用來實現(priority queue)優先隊列的方法之一. 能對任務工作作優先等級的排序用.<br><img src="https://i.imgur.com/XbheF2e.png" alt><br>底層還是以陣列形式表示<br><img src="https://i.imgur.com/9UZ2bdm.png" alt></p>
+<p>Dijkstra’s algorithm也是能用Heap做實現.</p>
+<h1 id="Heap-Interface"><a href="#Heap-Interface" class="headerlink" title="Heap Interface"></a>Heap Interface</h1><p>這裡會提到接口interface, 之後會更詳細的介紹interface的部份</p>
+<p>只要實現這些接口, 就可以操作heap提供的各種方法了.<br>可以看得出來heap接口繼承了sort.Interface, 而sort.Interface內又有三個方法需要實現.<br>繼承後面會有更詳細的部份介紹.<br>總之就是要實現這5個方法就行了.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Interface <span class="keyword">interface</span> &#123;</span><br><span class="line">	sort.Interface</span><br><span class="line">	Push(x <span class="keyword">interface</span>&#123;&#125;) <span class="comment">// add x as element Len()</span></span><br><span class="line">	Pop() <span class="keyword">interface</span>&#123;&#125;   <span class="comment">// remove and return element Len() - 1.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// sort.Interface</span></span><br><span class="line"><span class="keyword">type</span> Interface <span class="keyword">interface</span> &#123;</span><br><span class="line">	<span class="comment">// Len is the number of elements in the collection.</span></span><br><span class="line">	Len() <span class="keyword">int</span></span><br><span class="line">	<span class="comment">// Less reports whether the element with</span></span><br><span class="line">	<span class="comment">// index i should sort before the element with index j.</span></span><br><span class="line">	Less(i, j <span class="keyword">int</span>) <span class="keyword">bool</span></span><br><span class="line">	<span class="comment">// Swap swaps the elements with indexes i and j.</span></span><br><span class="line">	Swap(i, j <span class="keyword">int</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="初始化Heap"><a href="#初始化Heap" class="headerlink" title="初始化Heap"></a>初始化Heap</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heap.Init(customizeHeap)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Heap內建的操作方法"><a href="#Heap內建的操作方法" class="headerlink" title="Heap內建的操作方法"></a>Heap內建的操作方法</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一個滿足以上全部接口的堆積結構, 在操作前都要先執行Init()做初始化排序. </span></span><br><span class="line"><span class="comment">// 複雜度O(log n), n = Len(), 因為是二元搜尋樹的查找</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Init</span><span class="params">(h Interface)</span></span> &#123;</span><br><span class="line">	<span class="comment">// heapify</span></span><br><span class="line">	n := h.Len()</span><br><span class="line">	<span class="keyword">for</span> i := n/<span class="number">2</span> - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i-- &#123;</span><br><span class="line">		down(h, i, n)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 對Array增加一個新元素在最後面</span></span><br><span class="line"><span class="comment">// 並透過up()重新排序把元素作上升, 來滿足min heap的要求.</span></span><br><span class="line"><span class="comment">// 複雜度O(log n), n = Len()</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Push</span><span class="params">(h Interface, x <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    h.Push(x) <span class="comment">// 會呼叫我們自定義好的Push()</span></span><br><span class="line">	up(h, h.Len()<span class="number">-1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 刪除並且返回Len()-1位置的元素(Array最後一個的元素)</span></span><br><span class="line"><span class="comment">// 等同於對Array做了取[:n-1]的動作, 等於是把第一個元素跟最後一個做了互換後, 透過down(), 把新的根節點下沉到適合的位置, 用來滿足min heap的要求.</span></span><br><span class="line"><span class="comment">// Pop()跟Remove(h, 0 )是一樣的</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Pop</span><span class="params">(h Interface)</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">	n := h.Len() - <span class="number">1</span></span><br><span class="line">	h.Swap(<span class="number">0</span>, n)</span><br><span class="line">	down(h, <span class="number">0</span>, n)</span><br><span class="line">	<span class="keyword">return</span> h.Pop()  <span class="comment">// 會呼叫我們自定義好的Pop()</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果heap中有元素的值被修改, 則透過Fix()重新排序, down() &amp; up()也會被呼叫.</span></span><br><span class="line"><span class="comment">// 複雜度O(log n), n = Len()</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Fix</span><span class="params">(h Interface, i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> !down(h, i, h.Len()) &#123;</span><br><span class="line">		up(h, i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 刪除heap中第i個元素, 並且重新排序</span></span><br><span class="line"><span class="comment">// 複雜度O(log n), n = Len()</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Remove</span><span class="params">(h Interface, i <span class="keyword">int</span>)</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">	n := h.Len() - <span class="number">1</span></span><br><span class="line">	<span class="keyword">if</span> n != i &#123;</span><br><span class="line">		h.Swap(i, n)</span><br><span class="line">		<span class="keyword">if</span> !down(h, i, n) &#123;</span><br><span class="line">			up(h, i)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> h.Pop()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把元素下沉到對應的子樹合適的位置上</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">down</span><span class="params">(h Interface, i0, n <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;...&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把元素上升到對應的子樹合適的位置上</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">up</span><span class="params">(h Interface, j <span class="keyword">int</span>)</span></span> &#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="實現自定義的int-Heap"><a href="#實現自定義的int-Heap" class="headerlink" title="實現自定義的int Heap"></a>實現自定義的int Heap</h2><p>首先定義一個類型或是結構, 並且實現那5個方法.<br>取<a href="https://golang.org/pkg/container/heap/" target="_blank" rel="noopener">官網的範例</a>來說明</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"container/heap"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// An IntHeap is a min-heap of ints.</span></span><br><span class="line"><span class="keyword">type</span> IntHeap []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回元素個數</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h IntHeap)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span>           &#123; <span class="keyword">return</span> <span class="built_in">len</span>(h) &#125;</span><br><span class="line"><span class="comment">// 比較大小, 只要索引i的元素&lt;索引j的元素, 就會返回true, 否則返回false, 因為是Min Heap, 所以都在比小</span></span><br><span class="line"><span class="comment">// Max Heap就是反過來比大, 但這方法名還是叫Less不能改就是了XD</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h IntHeap)</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123; <span class="keyword">return</span> h[i] &lt; h[j] &#125;</span><br><span class="line"><span class="comment">// 交換h[i]跟h[j]的元素, Golang對swap的寫法很簡單, 不必在創建temp變數在那裡賦值.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h IntHeap)</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span></span>      &#123; h[i], h[j] = h[j], h[i] &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新增元素</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Push</span><span class="params">(x <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	*h = <span class="built_in">append</span>(*h, x.(<span class="keyword">int</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pop出最後一個元素</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">	old := *h</span><br><span class="line">	n := <span class="built_in">len</span>(old)</span><br><span class="line">    <span class="comment">// 把最後一個賦值給x</span></span><br><span class="line">	x := old[n<span class="number">-1</span>]</span><br><span class="line">    <span class="comment">// 建立一組新的slice , 取原有的slice 開始到n-1個元素,  並賦值</span></span><br><span class="line">	*h = old[<span class="number">0</span> : n<span class="number">-1</span>]</span><br><span class="line">	<span class="keyword">return</span> x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	h := &amp;IntHeap&#123;<span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>&#125;</span><br><span class="line">	heap.Init(h)</span><br><span class="line">	heap.Push(h, <span class="number">3</span>)</span><br><span class="line">	heap.Push(h, <span class="number">4</span>)</span><br><span class="line">	heap.Push(h, <span class="number">9</span>)</span><br><span class="line">    </span><br><span class="line">	fmt.Printf(<span class="string">"minimum: %d\n"</span>, (*h)[<span class="number">0</span>])</span><br><span class="line">    <span class="comment">// first :  1</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> h.Len() &gt; <span class="number">0</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"%d "</span>, heap.Pop(h))</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 2 3 4 5 9 </span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 把上面走訪heap整段註解掉</span></span><br><span class="line">    <span class="comment">// 修改第1個元素的值</span></span><br><span class="line">     <span class="comment">// 會把原本h[1]的元素, 移動到適當的位置去</span></span><br><span class="line">    (*h)[<span class="number">1</span>] = <span class="number">6</span></span><br><span class="line">    <span class="comment">// 讓heap重新排序</span></span><br><span class="line">    heap.Fix(h, <span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> h.Len() &gt; <span class="number">0</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"%d "</span>, heap.Pop(h))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 2 4 5 6 9</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="實現Priority-Queue"><a href="#實現Priority-Queue" class="headerlink" title="實現Priority Queue"></a>實現Priority Queue</h2><p><a href="https://golang.org/pkg/container/heap/" target="_blank" rel="noopener">官網範例</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"container/heap"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 元素結構</span></span><br><span class="line"><span class="keyword">type</span> Item <span class="keyword">struct</span> &#123;</span><br><span class="line">	value    <span class="keyword">string</span>  <span class="comment">// 元素的值</span></span><br><span class="line">    priority <span class="keyword">int</span>   <span class="comment">// 元素的優先權值</span></span><br><span class="line">	index <span class="keyword">int</span> <span class="comment">// 紀錄索引值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// PriorityQueue, 本質上是一個*item的Array</span></span><br><span class="line"><span class="keyword">type</span> PriorityQueue []*Item</span><br><span class="line"></span><br><span class="line"><span class="comment">// sort.Interface的實現</span></span><br><span class="line"><span class="comment">// 返回元素個數</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pq PriorityQueue)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span> &#123; <span class="keyword">return</span> <span class="built_in">len</span>(pq) &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 因為希望Pop出來的是priority值最大的元素, 所以這裡的邏輯是反著寫</span></span><br><span class="line"><span class="comment">// 其實這就是個Max Heap, 根節點的priority的值大於其他.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pq PriorityQueue)</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> pq[i].priority &gt; pq[j].priority</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 交換pq[i]跟pq[j]的元素, 這裡還要互換兩個元素彼此的index</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pq PriorityQueue)</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	pq[i], pq[j] = pq[j], pq[i]</span><br><span class="line">	pq[i].index = i</span><br><span class="line">	pq[j].index = j</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// heap.Interface的實現</span></span><br><span class="line"><span class="comment">// 新增元素在Array最後</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pq *PriorityQueue)</span> <span class="title">Push</span><span class="params">(x <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	n := <span class="built_in">len</span>(*pq)</span><br><span class="line">	item := x.(*Item) <span class="comment">// 這裡用類型斷言, 日後會補充</span></span><br><span class="line">	item.index = n <span class="comment">// 設定新增進來元素的index</span></span><br><span class="line">	*pq = <span class="built_in">append</span>(*pq, item)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Pop出Array最後1個元素</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pq *PriorityQueue)</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">	old := *pq</span><br><span class="line">	n := <span class="built_in">len</span>(old)</span><br><span class="line">	item := old[n<span class="number">-1</span>]</span><br><span class="line">	old[n<span class="number">-1</span>] = <span class="literal">nil</span>   <span class="comment">// 把元素設置為沒有指向任何東西, 等GC來回收原來指向所配置出來的空間</span></span><br><span class="line">	item.index = <span class="number">-1</span> <span class="comment">// 保險起見, 把pop出去的元素index設置成-1</span></span><br><span class="line">	*pq = old[<span class="number">0</span> : n<span class="number">-1</span>] <span class="comment">// 從old slice來取 0 ~ n-1的元素來形成新的slice, 並賦值給*pq</span></span><br><span class="line">	<span class="keyword">return</span> item</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更新元素的值和優先權, 並且重新排序</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(pq *PriorityQueue)</span> <span class="title">update</span><span class="params">(item *Item, value <span class="keyword">string</span>, priority <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	item.value = value</span><br><span class="line">	item.priority = priority</span><br><span class="line">	heap.Fix(pq, item.index)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	items := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;</span><br><span class="line">		<span class="string">"banana"</span>: <span class="number">3</span>, <span class="string">"apple"</span>: <span class="number">2</span>, <span class="string">"pear"</span>: <span class="number">4</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	pq := <span class="built_in">make</span>(PriorityQueue, <span class="built_in">len</span>(items))</span><br><span class="line">	i := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> value, priority := <span class="keyword">range</span> items &#123;</span><br><span class="line">		pq[i] = &amp;Item&#123;</span><br><span class="line">			value:    value,</span><br><span class="line">			priority: priority,</span><br><span class="line">			index:    i, <span class="comment">// 依照清單個數, 依序給index</span></span><br><span class="line">		&#125;</span><br><span class="line">		i++</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// 初始化Heap</span></span><br><span class="line">	heap.Init(&amp;pq)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 新增一個新元素</span></span><br><span class="line">	item := &amp;Item&#123;</span><br><span class="line">		value:    <span class="string">"orange"</span>,</span><br><span class="line">		priority: <span class="number">1</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	heap.Push(&amp;pq, item)</span><br><span class="line">    <span class="comment">// 修改該元素</span></span><br><span class="line">	pq.update(item, item.value, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 依序Pop出來</span></span><br><span class="line">	<span class="keyword">for</span> pq.Len() &gt; <span class="number">0</span> &#123;</span><br><span class="line">		item := heap.Pop(&amp;pq).(*Item)</span><br><span class="line">		fmt.Printf(<span class="string">"%.2d:%s "</span>, item.priority, item.value)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 05:orange 04:pear 03:banana 02:apple</span></span><br></pre></td></tr></table></figure>
+
+<p>初始化完成時的heap跟Array<br><img src="https://i.imgur.com/p4mZCto.png" alt>  </p>
+<p>新增orange, 並修改優先權後, 明顯orange被上升到合適的位置了<br><img src="https://i.imgur.com/Ddk49GY.png" alt></p>
+<p>依序Pop出來<br><img src="https://i.imgur.com/aozYNyB.png" alt><br><img src="https://i.imgur.com/SrsXGl9.png" alt><br><img src="https://i.imgur.com/rbpHAZ4.png" alt></p>
+<blockquote>
+<p>我發現Array位置沒改對…原諒我, 懶得修圖了 - .-<br>但二元樹是對的!’<br><a href="https://leetcode.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">LeetCode 23 </a>可以嘗試用heap來實現<br>小弟我日後補上</p>
+</blockquote>
+<p><a href="https://ithelp.ithome.com.tw/articles/10214861" target="_blank" rel="noopener">鐵人賽連結</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://tedmax100.github.io/2020/12/20/3兄弟-Heap/" data-id="ckix7vuue0001zd6xl7bcrbzi" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Nathan雷N"
+        },
+        "headline": "Container 3兄弟-Heap",
+        "image": "https://tedmax100.github.iohttps://i.imgur.com/XbheF2e.png",
+        "keywords": "Go iT邦鐵人賽11Th",
+        "genre": "Go",
+        "datePublished": "2020-12-20",
+        "dateCreated": "2020-12-20",
+        "dateModified": "2020-12-20",
+        "url": "https://tedmax100.github.io/2020/12/20/3兄弟-Heap/",
+        "description": "HeapHeap(堆積)其實是一個Complete Binary Tree(完全二元樹).Go的Heap特性是 各個節點都自己是其子樹的根, 且值是最小的.同個根節點的左子樹的值會小於右子樹.所以根節點的值是最小的, 位於索引0的位置.也有另一種是最大的(max heap), 只是Go這裡是最小的(min heap).定義 : n個元素 k1, k2,…ki…kn, 並且若且唯若滿足下列關係時稱為",
+        "wordCount": 1499
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>追蹤 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/profile.php?id=100000721194461" target="_blank" rel="noopener">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/tedmax100" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2020/12/20/3兄弟-List/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">Container 3兄弟-List</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/3兄弟-Heap/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://i.imgur.com/XbheF2e.png)" alt="Container 3兄弟-Heap" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Go/">Go</a></p>
+                            <p class="item-title"><a href="/2020/12/20/3兄弟-Heap/" class="title">Container 3兄弟-Heap</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T14:16:31.000Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/3兄弟-List/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://i.imgur.com/uvSvMVU.png)" alt="Container 3兄弟-List" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Go/">Go</a></p>
+                            <p class="item-title"><a href="/2020/12/20/3兄弟-List/" class="title">Container 3兄弟-List</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T13:26:42.000Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/Array/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://i.imgur.com/9VYZruf.png)" alt="Array &amp; Slice" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2020/12/20/Array/" class="title">Array &amp; Slice</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T13:09:04.000Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/第一隻Go程式/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://i.imgur.com/j62hYTR.png)" alt="第一隻Go程式" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Go/">Go</a></p>
+                            <p class="item-title"><a href="/2020/12/20/第一隻Go程式/" class="title">第一隻Go程式</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T08:50:06.000Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/20/學Golang的緣由/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://i.imgur.com/DNWjAse.gif)" alt="學Golang的緣由" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Go/">Go</a></p>
+                            <p class="item-title"><a href="/2020/12/20/學Golang的緣由/" class="title">學Golang的緣由</a></p>
+                            <p class="item-date"><time datetime="2020-12-20T08:17:50.000Z" itemprop="datePublished">2020-12-20</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分類</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Go/">Go</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/TechWeekly/">TechWeekly</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">所有文章</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">標籤</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CleanCode/">CleanCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS30Day/">JS30Day</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSCript/">JavaSCript</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MQ/">MQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pixi/">Pixi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RabbitMQ/">RabbitMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rx/">Rx</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sportsbook/">Sportsbook</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TechWeekly/">TechWeekly</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TypeScript/">TypeScript</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iT邦鐵人賽11Th/">iT邦鐵人賽11Th</a><span class="tag-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">標籤雲</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/CleanCode/" style="font-size: 10px;">CleanCode</a> <a href="/tags/Design-Pattern/" style="font-size: 16.67px;">Design Pattern</a> <a href="/tags/Docker/" style="font-size: 11.67px;">Docker</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/JS30Day/" style="font-size: 10px;">JS30Day</a> <a href="/tags/JavaSCript/" style="font-size: 11.67px;">JavaSCript</a> <a href="/tags/JavaScript/" style="font-size: 18.33px;">JavaScript</a> <a href="/tags/Lua/" style="font-size: 10px;">Lua</a> <a href="/tags/MQ/" style="font-size: 10px;">MQ</a> <a href="/tags/Pixi/" style="font-size: 10px;">Pixi</a> <a href="/tags/RabbitMQ/" style="font-size: 10px;">RabbitMQ</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Rx/" style="font-size: 13.33px;">Rx</a> <a href="/tags/Sportsbook/" style="font-size: 10px;">Sportsbook</a> <a href="/tags/TechWeekly/" style="font-size: 10px;">TechWeekly</a> <a href="/tags/TypeScript/" style="font-size: 16.67px;">TypeScript</a> <a href="/tags/iT邦鐵人賽11Th/" style="font-size: 15px;">iT邦鐵人賽11Th</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">連結</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://mileschou.github.io/">Miles Blog</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://jame2408.github.io/">James 的技術隨筆</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2020 Nathan雷N</p>
+                
+                <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank">PPOffice</a></p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://tedmax100.github.io/2020/12/20/3兄弟-Heap/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+</body>
+</html>

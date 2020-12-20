@@ -15,15 +15,15 @@ jobs:
           node_version: ${{ matrix.node_version }}
       - name: Configuration environment
         env:
-          DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
+          HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
         run: |
           mkdir -p ~/.ssh/
-          echo "$DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-          echo "$DEPLOY_KEY"
+          echo "$HEXO_DEPLOY_PRI" | tr -d '\r' > ~/.ssh/id_rsa
+          echo "$HEXO_DEPLOY_PRI"
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-          git config --global user.name "owlran"
-          git config --global user.email "owlran1088@gmail.com"
+          git config --global user.name "tedmax100"
+          git config --global user.email "tedmax100@gmail.com"
       - name: Update themes
         run: |
           git submodule init

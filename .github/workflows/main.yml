@@ -36,5 +36,6 @@ jobs:
           npm i
       - name: Deploy hexo
         run: |
+          rm -rf .deploy_git
           hexo clean
           hexo g -d

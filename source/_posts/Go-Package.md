@@ -4,10 +4,15 @@ date: 2019-07-14 15:31:31
 categories: "Go"
 tags:
     - Go
+    - iT邦鐵人賽11Th
 ---
 ![](/images/Go/source-files-to-package.001.png)
+​<!-- more -->
 [Everything you need to know about packages in Go](https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc)
 
+這次聊Package, 主要是因為接著都會需要對業務面向作模組的拆分.
+或者對功能作拆分, 甚至是第三方套件的引入.
+一個專案只要不是只有一個main.go, 就一定會有其他的package
 ### Package(包)
 程式碼的目錄, 可以重複利用程式的方案, 方便維護。
 Go默認提供很多package, 像是fmt、is等。
@@ -254,3 +259,4 @@ func main() {
 	c2.Do()
 }
 ```
+[鐵人賽連結](https://ithelp.ithome.com.tw/articles/10215623)
